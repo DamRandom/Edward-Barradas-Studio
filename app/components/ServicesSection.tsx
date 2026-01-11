@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const services = [
   {
@@ -21,86 +22,132 @@ const services = [
 ];
 
 export default function ServicesSection() {
+  const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const resize = () => setIsMobile(window.innerWidth < 1024);
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % services.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isMobile]);
+
   return (
-    <section id="services" className="relative py-36 bg-white">
+    <section id="services" className="relative py-32 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.div
-          className="mb-24 text-center"
+          className="mb-20"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
+          <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500">
+            Services
+          </p>
           <h2
             className="
-              text-3xl md:text-4xl
+              mt-6
               font-light
               uppercase
               tracking-[0.3em]
               text-black
+              text-[clamp(1.4rem,4vw,2.3rem)]
             "
           >
-            Services
+            What I Offer
           </h2>
-
-          <p className="mt-6 text-xs uppercase tracking-[0.25em] text-gray-500">
-            Selected offerings
-          </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              className="
-                relative
-                p-12
-                bg-white
-                shadow-[0_40px_100px_-55px_rgba(0,0,0,0.35)]
-              "
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.9,
-                ease: "easeOut",
-                delay: index * 0.1,
-              }}
-            >
-              {/* Index */}
-              <span
+        {/* Desktop layout */}
+        {!isMobile && (
+          <div className="grid grid-cols-3 gap-16">
+            {services.map((service, i) => (
+              <div
+                key={i}
                 className="
-                  absolute top-6 right-6
-                  text-[10px]
-                  uppercase
-                  tracking-widest
-                  text-gray-400
+                  relative
+                  p-12
+                  bg-white
+                  shadow-[0_40px_100px_-55px_rgba(0,0,0,0.35)]
                 "
               >
-                0{index + 1}
-              </span>
+                <span className="absolute top-6 right-6 text-[10px] tracking-widest text-gray-400">
+                  0{i + 1}
+                </span>
 
-              {/* Title */}
-              <h3
-                className="
-                  text-sm
-                  uppercase
-                  tracking-[0.25em]
-                  text-black
-                "
-              >
-                {service.title}
-              </h3>
+                <h3 className="text-sm uppercase tracking-[0.25em] text-black">
+                  {service.title}
+                </h3>
 
-              {/* Description */}
-              <p className="mt-6 text-sm leading-relaxed text-gray-700">
-                {service.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+                <p className="mt-6 text-sm leading-relaxed text-gray-700">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Mobile / tablet carousel */}
+        {isMobile && (
+          <>
+            <div className="relative h-[260px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 80 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -80 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="
+                    absolute
+                    inset-0
+                    mx-auto
+                    max-w-sm
+                    p-10
+                    bg-white
+                    shadow-[0_40px_100px_-55px_rgba(0,0,0,0.35)]
+                  "
+                >
+                  <span className="text-[10px] tracking-widest text-gray-400">
+                    0{index + 1}
+                  </span>
+
+                  <h3 className="mt-4 text-sm uppercase tracking-[0.25em] text-black">
+                    {services[index].title}
+                  </h3>
+
+                  <p className="mt-6 text-sm leading-relaxed text-gray-700">
+                    {services[index].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Pagination dots */}
+            <div className="mt-10 flex justify-center gap-3">
+              {services.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIndex(i)}
+                  className={`h-1.5 w-1.5 rounded-full transition ${
+                    i === index ? "bg-black" : "bg-gray-300"
+                  }`}
+                  aria-label={`Service ${i + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

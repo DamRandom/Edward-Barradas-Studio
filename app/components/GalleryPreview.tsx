@@ -2,103 +2,116 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const images = [
-  { src: "/images/gallery1.jpg", name: "ALESSIA" },
-  { src: "/images/gallery2.jpg", name: "MATTEO" },
-  { src: "/images/gallery3.jpg", name: "CAMILLE" },
+  { src: "/images/gallery1.jpg", name: "JAVIER" },
+  { src: "/images/gallery2.jpg", name: "MARCO" },
+  { src: "/images/gallery3.jpg", name: "ANTONIO" },
 ];
 
 export default function GalleryPreview() {
+  const [index, setIndex] = useState(0);
+  const [isCarousel, setIsCarousel] = useState(false);
+
+  // Detect when carousel should activate
+  useEffect(() => {
+    const handleResize = () => {
+      setIsCarousel(window.innerWidth < 1024);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Autoplay
+  useEffect(() => {
+    if (!isCarousel) return;
+
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isCarousel]);
+
   return (
-    <section id="gallery" className="bg-white py-32">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="gallery" className="bg-white py-24">
+      <div className="max-w-[1600px] mx-auto px-6">
         {/* Header */}
         <motion.div
-          className="mb-24"
-          initial={{ opacity: 0, y: 24 }}
+          className="mb-14"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Optional editorial label */}
           <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500">
             Portfolio
           </p>
 
           <h2
             className="
-              mt-6
-              text-3xl md:text-4xl
+              mt-5
               font-light
               uppercase
               tracking-[0.3em]
               text-black
+              text-[clamp(1.4rem,3vw,2.2rem)]
             "
           >
             Selected Work
           </h2>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-          {images.map((item, index) => (
-            <motion.article
-              key={index}
-              className="group relative"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.9,
-                ease: "easeOut",
-                delay: index * 0.1,
-              }}
-            >
-              <div className="relative aspect-3/4 overflow-hidden shadow-[0_40px_90px_-45px_rgba(0,0,0,0.35)]">
-                {/* Image */}
-                <Image
-                  src={item.src}
-                  alt={item.name}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
+        {/* Desktop layout */}
+        {!isCarousel && (
+          <div className="grid grid-cols-3 gap-14">
+            {images.map((item, i) => (
+              <Card key={i} item={item} />
+            ))}
+          </div>
+        )}
+
+        {/* Carousel layout */}
+        {isCarousel && (
+          <div className="relative">
+            <div className="overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  <div className="max-w-[80vw] mx-auto">
+                    <Card item={images[index]} />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Pagination dots */}
+            <div className="mt-10 flex justify-center gap-3">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIndex(i)}
+                  className={`h-[6px] w-[6px] rounded-full transition ${
+                    index === i ? "bg-black" : "bg-gray-300"
+                  }`}
                 />
-
-                {/* Editorial veil */}
-                <div className="absolute inset-0 bg-white/50 transition-opacity duration-500 group-hover:opacity-0" />
-
-                {/* Cut-out name */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span
-                    className="
-                      text-4xl md:text-5xl
-                      font-bold
-                      uppercase
-                      tracking-[0.35em]
-                      text-transparent
-                      bg-clip-text
-                      transition-opacity duration-500
-                      group-hover:opacity-0
-                    "
-                    style={{
-                      backgroundImage: `url(${item.src})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  >
-                    {item.name}
-                  </span>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Bottom CTA */}
         <motion.div
-          className="mt-28 text-center"
+          className="mt-16 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -123,5 +136,59 @@ export default function GalleryPreview() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function Card({ item }: { item: { src: string; name: string } }) {
+  return (
+    <motion.article
+      className="group relative"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <div
+        className="
+          relative
+          aspect-[3/4]
+          overflow-hidden
+          shadow-[0_40px_90px_-45px_rgba(0,0,0,0.35)]
+        "
+      >
+        <Image
+          src={item.src}
+          alt={item.name}
+          fill
+          sizes="80vw"
+          className="object-cover"
+        />
+
+        <div className="absolute inset-0 bg-white/55 transition-opacity duration-500 group-hover:opacity-0" />
+
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span
+            className="
+              font-bold
+              uppercase
+              text-transparent
+              bg-clip-text
+              tracking-[0.3em]
+              text-[clamp(1.4rem,4vw,2.6rem)]
+              transition-opacity
+              duration-500
+              group-hover:opacity-0
+            "
+            style={{
+              backgroundImage: `url(${item.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            {item.name}
+          </span>
+        </div>
+      </div>
+    </motion.article>
   );
 }

@@ -7,12 +7,21 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen w-full flex items-center justify-center bg-white overflow-hidden"
+      className="
+        relative
+        min-h-[100svh]
+        w-full
+        flex
+        items-center
+        justify-center
+        bg-white
+        overflow-hidden
+      "
     >
       {/* Background image */}
       <motion.div
         className="absolute inset-0"
-        initial={{ scale: 1.05, opacity: 0 }}
+        initial={{ scale: 1.08, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.6, ease: "easeOut" }}
       >
@@ -25,20 +34,27 @@ export default function Hero() {
           className="object-cover grayscale"
         />
 
-        {/* Editorial overlay */}
-        <div className="absolute inset-0 backdrop-blur-[2px] bg-white/35" />
+        {/* Editorial veil */}
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px]" />
       </motion.div>
 
       {/* Content */}
       <motion.div
-        className="relative z-10 max-w-5xl px-6 text-center"
+        className="
+          relative
+          z-10
+          w-full
+          max-w-6xl
+          px-6
+          text-center
+        "
         initial="hidden"
         animate="visible"
         variants={{
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.25,
+              staggerChildren: 0.22,
             },
           },
         }}
@@ -46,14 +62,15 @@ export default function Hero() {
         {/* Name */}
         <motion.h1
           className="
-            text-5xl md:text-7xl lg:text-8xl
             font-bold
             uppercase
-            tracking-[0.35em]
             text-black
+            tracking-[0.28em]
+            text-[clamp(2.2rem,8vw,6.5rem)]
+            leading-[1.05]
           "
           variants={{
-            hidden: { opacity: 0, y: 24 },
+            hidden: { opacity: 0, y: 28 },
             visible: { opacity: 1, y: 0 },
           }}
           transition={{ duration: 0.9, ease: "easeOut" }}
@@ -64,10 +81,12 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p
           className="
-            mt-8
-            text-xs md:text-sm
+            mt-6
+            text-[10px]
+            sm:text-xs
+            md:text-sm
             uppercase
-            tracking-[0.3em]
+            tracking-[0.32em]
             text-gray-800
           "
           variants={{
@@ -81,7 +100,16 @@ export default function Hero() {
 
         {/* Actions */}
         <motion.div
-          className="mt-14 flex justify-center gap-12"
+          className="
+            mt-14
+            flex
+            flex-col
+            sm:flex-row
+            items-center
+            justify-center
+            gap-8
+            sm:gap-12
+          "
           variants={{
             hidden: { opacity: 0 },
             visible: { opacity: 1 },
@@ -90,14 +118,34 @@ export default function Hero() {
         >
           <a
             href="#gallery"
-            className="text-xs uppercase tracking-widest text-black border-b border-black pb-1 hover:opacity-60 transition"
+            className="
+              text-xs
+              uppercase
+              tracking-widest
+              text-black
+              border-b
+              border-black
+              pb-1
+              hover:opacity-60
+              transition
+            "
           >
             View Gallery
           </a>
 
           <a
             href="#contact"
-            className="text-xs uppercase tracking-widest text-black border-b border-black pb-1 hover:opacity-60 transition"
+            className="
+              text-xs
+              uppercase
+              tracking-widest
+              text-black
+              border-b
+              border-black
+              pb-1
+              hover:opacity-60
+              transition
+            "
           >
             Contact
           </a>

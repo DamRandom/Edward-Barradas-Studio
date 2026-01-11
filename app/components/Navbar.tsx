@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +30,7 @@ export default function Navbar() {
         <Link
           href="#home"
           className="
-            text-sm md:text-base
+            text-xs sm:text-sm md:text-base
             font-bold
             uppercase
             tracking-[0.35em]
@@ -38,34 +40,84 @@ export default function Navbar() {
           Edward Barradas
         </Link>
 
-        {/* Navigation */}
-        <ul className="flex items-center space-x-10 text-xs uppercase tracking-widest text-gray-700">
+        {/* Desktop navigation */}
+        <ul className="hidden md:flex items-center space-x-12 text-xs uppercase tracking-widest text-gray-700">
           <li>
-            <Link
-              href="#gallery"
-              className="hover:text-black transition-colors"
-            >
+            <Link href="#gallery" className="hover:text-black transition">
               Gallery
             </Link>
           </li>
           <li>
-            <Link
-              href="#services"
-              className="hover:text-black transition-colors"
-            >
+            <Link href="#services" className="hover:text-black transition">
               Services
             </Link>
           </li>
           <li>
-            <Link
-              href="#contact"
-              className="hover:text-black transition-colors"
-            >
+            <Link href="#contact" className="hover:text-black transition">
               Contact
             </Link>
           </li>
         </ul>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="
+            md:hidden
+            text-[10px]
+            uppercase
+            tracking-[0.35em]
+            text-gray-700
+            hover:text-black
+            transition
+          "
+        >
+          {open ? "Close" : "Menu"}
+        </button>
       </nav>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="md:hidden bg-white border-t border-black/5"
+          >
+            <ul className="flex flex-col items-center py-10 space-y-8 text-xs uppercase tracking-[0.35em] text-gray-700">
+              <li>
+                <Link
+                  href="#gallery"
+                  onClick={() => setOpen(false)}
+                  className="hover:text-black transition"
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#services"
+                  onClick={() => setOpen(false)}
+                  className="hover:text-black transition"
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="hover:text-black transition"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

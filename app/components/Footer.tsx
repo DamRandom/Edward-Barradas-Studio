@@ -4,93 +4,50 @@ export default function Footer() {
       <div
         className="
           max-w-7xl mx-auto
-          px-6 py-10
+          px-6 py-8
           flex flex-col md:flex-row
           items-center justify-between
-          gap-6
+          gap-8
         "
       >
         {/* Copyright */}
-        <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500">
+        <p className="text-[10px] uppercase tracking-[0.35em] text-gray-400">
           © {new Date().getFullYear()} Edward Barradas
         </p>
 
         {/* Social links */}
         <ul
           className="
-            flex flex-wrap items-center
-            gap-6
+            flex flex-wrap items-center justify-center
+            gap-x-6 gap-y-3
             text-[10px]
             uppercase
-            tracking-[0.35em]
-            text-gray-500
+            tracking-[0.4em]
+            text-gray-400
           "
         >
-          <li>
-            <a
-              href="https://instagram.com/edwardbarradas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black transition-colors"
-            >
-              Instagram
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://facebook.com/edwardbarradas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black transition-colors"
-            >
-              Facebook
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://twitter.com/edwardbarradas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black transition-colors"
-            >
-              Twitter
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://tumblr.com/edwardbarradas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black transition-colors"
-            >
-              Tumblr
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://onlyfans.com/edwardbarradas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black transition-colors"
-            >
-              OnlyFans
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://tiktok.com/@edwardbarradas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black transition-colors"
-            >
-              TikTok
-            </a>
-          </li>
+          {[
+            { name: "Instagram", href: "https://instagram.com/edwardbarradas" },
+            { name: "Facebook", href: "https://facebook.com/edwardbarradas" },
+            { name: "Twitter", href: "https://twitter.com/edwardbarradas" },
+            { name: "Tumblr", href: "https://tumblr.com/edwardbarradas" },
+            { name: "OnlyFans", href: "https://onlyfans.com/edwardbarradas" },
+            { name: "TikTok", href: "https://tiktok.com/@edwardbarradas" },
+          ].map((social) => (
+            <li key={social.name} className="relative">
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  transition-colors
+                  hover:text-black
+                "
+              >
+                {social.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </footer>
