@@ -71,7 +71,7 @@ export default function AboutSection() {
             transition={{ duration: 0.7, ease: "easeInOut" }}
           >
             {/* Image panel */}
-            <div className="w-1/2 lg:w-1/2 relative aspect-[3/4] lg:aspect-auto">
+            <div className="w-1/2 lg:w-1/2 relative aspect-3/4 lg:aspect-auto">
               <Image
                 src="/images/about.jpg"
                 alt="Edward Barradas portrait"

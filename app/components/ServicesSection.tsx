@@ -100,7 +100,7 @@ export default function ServicesSection() {
         {/* Mobile / tablet carousel */}
         {isMobile && (
           <>
-            <div className="relative h-[260px]">
+            <div className="relative h-65">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}

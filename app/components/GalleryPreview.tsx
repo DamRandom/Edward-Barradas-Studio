@@ -39,7 +39,7 @@ export default function GalleryPreview() {
 
   return (
     <section id="gallery" className="bg-white py-24">
-      <div className="max-w-[1600px] mx-auto px-6">
+      <div className="max-w-400 mx-auto px-6">
         {/* Header */}
         <motion.div
           className="mb-14"
@@ -100,7 +100,7 @@ export default function GalleryPreview() {
                 <button
                   key={i}
                   onClick={() => setIndex(i)}
-                  className={`h-[6px] w-[6px] rounded-full transition ${
+                  className={`h-1.5 w-1.5 rounded-full transition ${
                     index === i ? "bg-black" : "bg-gray-300"
                   }`}
                 />
@@ -151,7 +151,7 @@ function Card({ item }: { item: { src: string; name: string } }) {
       <div
         className="
           relative
-          aspect-[3/4]
+          aspect-3/4
           overflow-hidden
           shadow-[0_40px_90px_-45px_rgba(0,0,0,0.35)]
         "

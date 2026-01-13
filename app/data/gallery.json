@@ -1,0 +1,51 @@
+{
+  "collections": [
+    {
+      "id": "soft-light",
+      "title": "Soft Light",
+      "coverImage": "/images/soft-light/cover.jpg",
+      "tags": ["portrait", "editorial", "soft"],
+      "fullPackPrice": 120,
+      "discountPercent": 30,
+      "model": {
+        "name": "Alex R.",
+        "bio": "Editorial portrait model based in Madrid."
+      },
+      "photos": [
+        {
+          "id": "soft-01",
+          "src": "/images/soft-light/01-preview.jpg",
+          "price": 15,
+          "tags": ["close-up", "natural-light"]
+        },
+        {
+          "id": "soft-02",
+          "src": "/images/soft-light/02-preview.jpg",
+          "price": 18,
+          "tags": ["profile", "studio"]
+        }
+      ]
+    },
+
+    {
+      "id": "contrast-series",
+      "title": "High Contrast",
+      "coverImage": "/images/contrast/cover.jpg",
+      "tags": ["fashion", "dramatic"],
+      "fullPackPrice": 150,
+      "discountPercent": 25,
+      "model": {
+        "name": "Marco L.",
+        "bio": "Fashion and runway model with an editorial focus."
+      },
+      "photos": [
+        {
+          "id": "contrast-01",
+          "src": "/images/contrast/01-preview.jpg",
+          "price": 20,
+          "tags": ["fashion", "black-white"]
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ export default function Hero() {
       id="home"
       className="
         relative
-        min-h-[100svh]
+        min-h-svh
         w-full
         flex
         items-center
