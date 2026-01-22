@@ -59,6 +59,7 @@ export default function CollectionModal({
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
             className="relative"
+            // Re-trigger build
           >
             <PhotoCarousel
               images={collection.photos.map((photo) => ({
