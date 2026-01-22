@@ -3,14 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-type PhotoItemProps = {
-  id: string;
-  src: string;
-  alt?: string;
-  price: number;
-  selected?: boolean;
-  onSelect?: (id: string) => void;
-};
+import { PhotoItemProps } from "../types/gallery";
 
 export default function PhotoItem({
   id,

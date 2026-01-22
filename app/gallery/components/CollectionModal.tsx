@@ -1,28 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import PhotoCarousel from "./PhotoCarousel";
 import PurchasePanel from "./PurchasePanel";
 
-type Photo = {
-  id: string;
-  src: string;
-  price: number;
-  tags: string[];
-};
+import { CollectionModalProps } from "../types/gallery";
 
-type Collection = {
-  id: string;
-  title: string;
-  description?: string;
-  photos: Photo[];
-};
-
-type CollectionModalProps = {
-  collection: Collection | null;
-  onClose: () => void;
-};
+/* ---------- Component ---------- */
 
 export default function CollectionModal({
   collection,
@@ -76,7 +60,12 @@ export default function CollectionModal({
             transition={{ duration: 0.9, ease: "easeOut" }}
             className="relative"
           >
-            <PhotoCarousel photos={collection.photos} />
+            <PhotoCarousel
+              images={collection.photos.map((photo) => ({
+                id: photo.id,
+                src: photo.src,
+              }))}
+            />
           </motion.div>
 
           {/* Right — Info & Purchase */}
@@ -114,7 +103,16 @@ export default function CollectionModal({
               </p>
             )}
 
-            <PurchasePanel photos={collection.photos} />
+            <PurchasePanel
+              selectedCount={0}
+              selectedTotal={0}
+              fullPrice={collection.fullPackPrice}
+              discountedPrice={
+                collection.fullPackPrice * (1 - collection.discountPercent / 100)
+              }
+              onBuySelected={() => {}}
+              onBuyFull={() => {}}
+            />
           </motion.div>
         </div>
       </motion.div>

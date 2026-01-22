@@ -1,20 +1,20 @@
 /* ---------- Core Types ---------- */
 
-export interface Photo {
+export type Photo = {
   id: string;
   src: string;
   price: number;
   tags: string[];
-}
+};
 
-export interface Model {
+export type Model = {
   name: string;
   bio: string;
-  image?: string;       // ruta de la imagen del modelo
-  description?: string; // descripción editorial del modelo
-}
+  image?: string;
+  description?: string;
+};
 
-export interface Collection {
+export type Collection = {
   id: string;
   title: string;
   coverImage: string;
@@ -23,60 +23,66 @@ export interface Collection {
   discountPercent: number;
   model: Model;
   photos: Photo[];
-  description?: string; // opcional, usado en CollectionModal
-}
+  description?: string;
+};
 
 /* ---------- Component Props ---------- */
 
-export interface CollectionGridProps {
+export type CollectionGridProps = {
   collections: Collection[];
   onSelectCollection: (collection: Collection) => void;
-}
+};
 
-export interface CollectionCardProps {
+export type CollectionCardProps = {
   collection: Collection;
   onSelect: (collection: Collection) => void;
-}
+};
 
-export interface CollectionModalProps {
+export type CollectionModalProps = {
   collection: Collection | null;
   onClose: () => void;
-}
+};
 
-export interface PhotoCarouselProps {
-  images: {
-    id: string;
-    src: string;
-    alt?: string;
-  }[];
+export type PhotoCarouselImage = Pick<Photo, "id" | "src"> & {
+  alt?: string;
+};
+
+export type PhotoCarouselProps = {
+  images: PhotoCarouselImage[];
   autoPlay?: boolean;
   interval?: number;
-}
+};
 
-export interface PhotoItemProps {
-  photo: Photo;
-  selected: boolean;
-  onToggle: (id: string) => void;
-}
+export type PhotoItemProps = {
+  id: string;
+  src: string;
+  alt?: string;
+  price: number;
+  selected?: boolean;
+  onSelect?: (id: string) => void;
+};
 
-export interface PurchasePanelProps {
-  photos: Photo[];
-  fullPackPrice: number;
-  discountPercent: number;
-}
+export type PurchasePanelProps = {
+  selectedCount: number;
+  selectedTotal: number;
+  fullPrice: number;
+  discountedPrice: number;
+  onBuySelected: () => void;
+  onBuyFull: () => void;
+};
 
-export interface GalleryToolbarProps {
+export type GalleryToolbarProps = {
   search: string;
   onSearchChange: (value: string) => void;
+  availableTags: string[];
   activeTag: string | null;
   onTagChange: (tag: string | null) => void;
-  availableTags: string[];
-}
+};
 
-export interface ModelInfoProps {
+export type ModelInfoProps = {
   name: string;
   image: string;
-  description: string;
   age?: number;
   location?: string;
-}
+  description: string;
+};

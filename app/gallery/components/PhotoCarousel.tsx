@@ -4,8 +4,13 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import type { PhotoCarouselProps } from "../types/gallery"; // ajusta el path si es distinto
 
-export default function PhotoCarousel({ images, autoPlay = true, interval = 4000 }) {
+export default function PhotoCarousel({
+  images,
+  autoPlay = true,
+  interval = 4000,
+}: PhotoCarouselProps) {
   const [index, setIndex] = useState(0);
   const total = images.length;
 
@@ -18,6 +23,8 @@ export default function PhotoCarousel({ images, autoPlay = true, interval = 4000
 
     return () => clearInterval(timer);
   }, [autoPlay, interval, total]);
+
+  if (!total) return null;
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -56,7 +63,9 @@ export default function PhotoCarousel({ images, autoPlay = true, interval = 4000
               onClick={() => setIndex(i)}
               aria-label={`View image ${i + 1}`}
               className={`h-1.5 w-1.5 rounded-full transition-all ${
-                i === index ? "bg-black scale-125" : "bg-black/30 hover:bg-black/60"
+                i === index
+                  ? "bg-black scale-125"
+                  : "bg-black/30 hover:bg-black/60"
               }`}
             />
           ))}

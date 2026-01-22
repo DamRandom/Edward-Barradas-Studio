@@ -3,13 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-type ModelInfoProps = {
-  name: string;
-  image: string;
-  age?: number;
-  location?: string;
-  description: string;
-};
+import { ModelInfoProps } from "../types/gallery";
 
 export default function ModelInfo({
   name,

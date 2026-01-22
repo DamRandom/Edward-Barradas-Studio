@@ -2,13 +2,7 @@
 
 import { motion } from "framer-motion";
 
-type GalleryToolbarProps = {
-  search: string;
-  onSearchChange: (value: string) => void;
-  availableTags: string[]; // ahora coincide con GalleryPage
-  activeTag: string | null;
-  onTagChange: (tag: string | null) => void;
-};
+import { GalleryToolbarProps } from "../types/gallery";
 
 export default function GalleryToolbar({
   search,

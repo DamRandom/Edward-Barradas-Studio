@@ -2,14 +2,7 @@
 
 import { motion } from "framer-motion";
 
-type PurchasePanelProps = {
-  selectedCount: number;
-  selectedTotal: number;
-  fullPrice: number;
-  discountedPrice: number;
-  onBuySelected: () => void;
-  onBuyFull: () => void;
-};
+import { PurchasePanelProps } from "../types/gallery";
 
 export default function PurchasePanel({
   selectedCount,
