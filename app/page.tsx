@@ -10,13 +10,8 @@ export default function Home() {
   return (
     <>
       <main>
-        {/* Hero full screen */}
         <Hero />
-
-        {/* Navbar como separador */}
         <Navbar />
-
-        {/* Contenido */}
         <GalleryPreview />
 
         <AboutSection />

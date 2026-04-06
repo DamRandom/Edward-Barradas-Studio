@@ -39,19 +39,21 @@ export default function ContactSection() {
                 text-[clamp(1.4rem,4vw,2.3rem)]
               "
             >
-              Let’s work together
+              Let&apos;s work together
             </h2>
 
             <p className="mt-8 text-sm leading-relaxed text-gray-700">
               For print inquiries, commissioned work or collaborations,
-              feel free to reach out. I’m always open to thoughtful projects
+              feel free to reach out. I&apos;m always open to thoughtful projects
               and meaningful visual stories.
             </p>
           </div>
 
           {/* Editorial CTA */}
           <motion.a
-            href="mailto:contact@edwardbarradas.com"
+            href="https://wa.me/51910280429"
+            target="_blank"
+            rel="noreferrer"
             className="
               group
               relative

@@ -27,12 +27,8 @@ export default function Footer() {
           "
         >
           {[
-            { name: "Instagram", href: "https://instagram.com/edwardbarradas" },
-            { name: "Facebook", href: "https://facebook.com/edwardbarradas" },
-            { name: "Twitter", href: "https://twitter.com/edwardbarradas" },
-            { name: "Tumblr", href: "https://tumblr.com/edwardbarradas" },
-            { name: "OnlyFans", href: "https://onlyfans.com/edwardbarradas" },
-            { name: "TikTok", href: "https://tiktok.com/@edwardbarradas" },
+            { name: "Instagram", href: "https://instagram.com/edwardhrnndz" },
+            { name: "Twitter", href: "https://twitter.com/edwftsh" },
           ].map((social) => (
             <li key={social.name} className="relative">
               <a

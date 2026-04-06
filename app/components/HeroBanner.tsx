@@ -150,6 +150,49 @@ export default function Hero() {
             Contact
           </a>
         </motion.div>
+
+        {/* Social Network Links */}
+        <motion.div
+          className="
+            mt-12
+            flex
+            items-center
+            justify-center
+            gap-6
+          "
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <a
+            href="https://instagram.com/edwardhrnndz"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[10px] uppercase tracking-widest text-black/50 hover:text-black transition"
+          >
+            IG
+          </a>
+          <span className="text-black/20 text-[10px]">•</span>
+          <a
+            href="https://wa.me/51910280429"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[10px] uppercase tracking-widest text-black/50 hover:text-black transition"
+          >
+            WA
+          </a>
+          <span className="text-black/20 text-[10px]">•</span>
+          <a
+            href="https://twitter.com/edwftsh"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[10px] uppercase tracking-widest text-black/50 hover:text-black transition"
+          >
+            X
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );

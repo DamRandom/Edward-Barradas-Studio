@@ -99,7 +99,7 @@ export default function AboutSection() {
 
                 <div className="mt-8 space-y-6 text-sm leading-relaxed text-gray-700">
                   <p>
-                    I’m Edward Barradas, a photographer focused on creating
+                    I&apos;m Edward Barradas, a photographer focused on creating
                     clean, honest and visually timeless imagery.
                   </p>
 

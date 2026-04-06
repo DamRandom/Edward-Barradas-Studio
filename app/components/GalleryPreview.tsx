@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import CollectionCard from "./ui/CollectionCard";
 
 const images = [
-  { src: "/images/gallery1.jpg", name: "JAVIER" },
-  { src: "/images/gallery2.jpg", name: "MARCO" },
-  { src: "/images/gallery3.jpg", name: "ANTONIO" },
+  { src: "/images/gallery1.jpg", name: "JAVIER", photos: ["/images/gallery1.jpg", "/images/gallery2.jpg", "/images/gallery3.jpg"] },
+  { src: "/images/gallery2.jpg", name: "MARCO", photos: ["/images/gallery2.jpg", "/images/gallery4.jpg", "/images/gallery6.jpg"] },
+  { src: "/images/gallery3.jpg", name: "ANTONIO", photos: ["/images/gallery3.jpg", "/images/gallery5.jpg"] },
 ];
 
 export default function GalleryPreview() {
@@ -70,7 +71,7 @@ export default function GalleryPreview() {
         {!isCarousel && (
           <div className="grid grid-cols-3 gap-14">
             {images.map((item, i) => (
-              <Card key={i} item={item} />
+              <CollectionCard key={i} item={item} />
             ))}
           </div>
         )}
@@ -88,7 +89,7 @@ export default function GalleryPreview() {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
                   <div className="max-w-[80vw] mx-auto">
-                    <Card item={images[index]} />
+                    <CollectionCard item={images[index]} />
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -139,56 +140,4 @@ export default function GalleryPreview() {
   );
 }
 
-function Card({ item }: { item: { src: string; name: string } }) {
-  return (
-    <motion.article
-      className="group relative"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <div
-        className="
-          relative
-          aspect-3/4
-          overflow-hidden
-          shadow-[0_40px_90px_-45px_rgba(0,0,0,0.35)]
-        "
-      >
-        <Image
-          src={item.src}
-          alt={item.name}
-          fill
-          sizes="80vw"
-          className="object-cover"
-        />
 
-        <div className="absolute inset-0 bg-white/55 transition-opacity duration-500 group-hover:opacity-0" />
-
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span
-            className="
-              font-bold
-              uppercase
-              text-transparent
-              bg-clip-text
-              tracking-[0.3em]
-              text-[clamp(1.4rem,4vw,2.6rem)]
-              transition-opacity
-              duration-500
-              group-hover:opacity-0
-            "
-            style={{
-              backgroundImage: `url(${item.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            {item.name}
-          </span>
-        </div>
-      </div>
-    </motion.article>
-  );
-}
