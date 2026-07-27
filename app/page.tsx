@@ -6,15 +6,21 @@ import ServicesSection from "./components/ServicesSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 
-export default function Home() {
+import { client } from "@/sanity/lib/client";
+import { recentCollectionsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+
+export default async function Home() {
+  const collections = await client.fetch(recentCollectionsQuery);
+  const siteSettings = await client.fetch(siteSettingsQuery) || {};
+
   return (
     <>
       <main>
-        <Hero />
+        <Hero siteSettings={siteSettings} />
         <Navbar />
-        <GalleryPreview />
+        <GalleryPreview collections={collections} />
 
-        <AboutSection />
+        <AboutSection siteSettings={siteSettings} />
 
         <ServicesSection />
 

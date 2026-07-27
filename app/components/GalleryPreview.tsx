@@ -1,108 +1,99 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import CollectionCard from "./ui/CollectionCard";
 
-const images = [
-  { src: "/images/gallery1.jpg", name: "JAVIER", photos: ["/images/gallery1.jpg", "/images/gallery2.jpg", "/images/gallery3.jpg"] },
-  { src: "/images/gallery2.jpg", name: "MARCO", photos: ["/images/gallery2.jpg", "/images/gallery4.jpg", "/images/gallery6.jpg"] },
-  { src: "/images/gallery3.jpg", name: "ANTONIO", photos: ["/images/gallery3.jpg", "/images/gallery5.jpg"] },
-];
-
-export default function GalleryPreview() {
+export default function GalleryPreview({ collections }: { collections: any[] }) {
   const [index, setIndex] = useState(0);
   const [isCarousel, setIsCarousel] = useState(false);
 
-  // Detect when carousel should activate
   useEffect(() => {
     const handleResize = () => {
       setIsCarousel(window.innerWidth < 1024);
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Autoplay
   useEffect(() => {
-    if (!isCarousel) return;
-
+    if (!isCarousel || !collections?.length) return;
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
+      setIndex((prev) => (prev + 1) % collections.length);
     }, 4000);
-
     return () => clearInterval(interval);
-  }, [isCarousel]);
+  }, [isCarousel, collections]);
 
   return (
-    <section id="gallery" className="bg-white py-24">
-      <div className="max-w-400 mx-auto px-6">
+    <section id="gallery" className="bg-background py-28 md:py-36">
+      <div className="px-6">
         {/* Header */}
         <motion.div
-          className="mb-14"
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <p className="text-[10px] uppercase tracking-[0.35em] text-gray-500">
+          <p className="text-[9px] uppercase tracking-[0.45em] text-gray-warm">
             Portfolio
           </p>
 
-          <h2
-            className="
-              mt-5
-              font-light
-              uppercase
-              tracking-[0.3em]
-              text-black
-              text-[clamp(1.4rem,3vw,2.2rem)]
-            "
-          >
+          <h2 className="mt-4 font-serif font-light text-foreground text-[clamp(2rem,4vw,3rem)]">
             Selected Work
           </h2>
+
+          <div className="mt-5 w-8 h-px bg-accent-gold" />
         </motion.div>
 
+        {/* Empty State */}
+        {(!collections || collections.length === 0) && (
+          <div className="py-24 text-center border border-black/10">
+            <p className="text-[10px] uppercase tracking-widest text-gray-warm">
+              No collections to display yet.
+            </p>
+          </div>
+        )}
+
         {/* Desktop layout */}
-        {!isCarousel && (
-          <div className="grid grid-cols-3 gap-14">
-            {images.map((item, i) => (
+        {!isCarousel && collections && collections.length > 0 && (
+          <div className="grid grid-cols-3 gap-10">
+            {collections.map((item, i) => (
               <CollectionCard key={i} item={item} />
             ))}
           </div>
         )}
 
-        {/* Carousel layout */}
-        {isCarousel && (
+        {/* Carousel layout (mobile) */}
+        {isCarousel && collections && collections.length > 0 && (
           <div className="relative">
             <div className="overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: 40 }}
+                  initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -40 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                  <div className="max-w-[80vw] mx-auto">
-                    <CollectionCard item={images[index]} />
+                  <div className="max-w-[85vw] mx-auto">
+                    <CollectionCard item={collections[index]} />
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
             {/* Pagination dots */}
-            <div className="mt-10 flex justify-center gap-3">
-              {images.map((_, i) => (
+            <div className="mt-8 flex justify-center gap-2.5">
+              {collections.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setIndex(i)}
-                  className={`h-1.5 w-1.5 rounded-full transition ${
-                    index === i ? "bg-black" : "bg-gray-300"
+                  aria-label={`Collection ${i + 1}`}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    index === i ? "w-6 bg-foreground" : "w-1.5 bg-foreground/20"
                   }`}
                 />
               ))}
@@ -119,18 +110,9 @@ export default function GalleryPreview() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Link
+            id="gallery-explore-all"
             href="/gallery"
-            className="
-              inline-block
-              text-xs
-              uppercase
-              tracking-widest
-              text-black
-              border-b border-black
-              pb-1
-              hover:opacity-60
-              transition
-            "
+            className="inline-block text-[10px] uppercase tracking-widest text-foreground border-b border-foreground/25 pb-0.5 hover:border-foreground/70 transition-all duration-300"
           >
             Explore full gallery
           </Link>
@@ -139,5 +121,3 @@ export default function GalleryPreview() {
     </section>
   );
 }
-
-
