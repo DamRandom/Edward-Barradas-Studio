@@ -10,6 +10,9 @@ export const metadata = {
   description: "Explore the full photographic archive and editorial portfolio.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function GalleryPage() {
   const collections = await client.fetch(allCollectionsQuery);
 

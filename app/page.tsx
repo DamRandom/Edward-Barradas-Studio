@@ -9,6 +9,9 @@ import Footer from "./components/Footer";
 import { client } from "@/sanity/lib/client";
 import { recentCollectionsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Home() {
   const collections = await client.fetch(recentCollectionsQuery);
   const siteSettings = await client.fetch(siteSettingsQuery) || {};
