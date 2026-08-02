@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity'
 
-export const recentCollectionsQuery = groq`*[_type == "collection"] | order(publishedAt desc)[0...3] {
+export const recentCollectionsQuery = groq`*[_type == "collection"] | order(coalesce(publishedAt, _createdAt) desc)[0...3] {
   _id,
   name,
   "src": coverImage.asset->url,
@@ -11,7 +11,7 @@ export const recentCollectionsQuery = groq`*[_type == "collection"] | order(publ
   }
 }`
 
-export const allCollectionsQuery = groq`*[_type == "collection"] | order(publishedAt desc) {
+export const allCollectionsQuery = groq`*[_type == "collection"] | order(coalesce(publishedAt, _createdAt) desc) {
   _id,
   name,
   "src": coverImage.asset->url,
@@ -27,3 +27,4 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0] {
   "aboutPortrait": aboutPortrait.asset->url,
   "aboutBackground": aboutBackground.asset->url
 }`
+

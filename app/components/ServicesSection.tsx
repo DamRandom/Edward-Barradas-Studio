@@ -44,51 +44,64 @@ export default function ServicesSection() {
   }, [isMobile]);
 
   return (
-    <section id="services" className="relative py-28 md:py-40 bg-foreground overflow-hidden">
-      {/* Subtle warm grain texture via pseudo background */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')] pointer-events-none" />
+    <section id="services" className="relative py-32 md:py-44 bg-[#141414] text-background overflow-hidden border-t border-b border-black">
+      {/* Subtle warm grain texture */}
+      <div className="absolute inset-0 opacity-[0.04] bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')] pointer-events-none" />
 
-      <div className="relative px-6">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
         <motion.div
-          className="mb-20"
+          className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <p className="text-[9px] uppercase tracking-[0.45em] text-background/40">
-            Services
-          </p>
-          <h2 className="mt-4 font-serif font-light text-background/90 text-[clamp(2rem,4vw,3rem)]">
-            What I Offer
-          </h2>
-          <div className="mt-5 w-8 h-px bg-accent-gold/70" />
+          <div>
+            <span className="text-[9px] uppercase tracking-[0.45em] text-background/40 font-medium block mb-3">
+              Services / 02
+            </span>
+            <h2 className="font-serif font-light text-background/95 text-[clamp(2.4rem,4.5vw,3.6rem)] leading-none">
+              Capabilities & Offerings
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-px bg-accent-gold/60" />
+            <p className="text-[10px] uppercase tracking-[0.3em] text-background/45">
+              Custom Solutions
+            </p>
+          </div>
         </motion.div>
 
-        {/* Desktop layout — horizontal list with top border rule */}
+        {/* Desktop layout */}
         {!isMobile && (
-          <div className="grid grid-cols-3 divide-x divide-background/[0.08]">
+          <div className="grid grid-cols-3 divide-x divide-background/[0.08] border-t border-b border-background/[0.08]">
             {services.map((service, i) => (
               <motion.div
                 key={i}
-                className="px-10 py-2 first:pl-0 last:pr-0 group"
+                className="p-8 lg:p-12 group transition-colors duration-400 hover:bg-background/[0.02]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
               >
-                <span className="text-[10px] tracking-widest text-background/25 font-light">
-                  {service.number}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="font-serif text-3xl font-light text-accent-gold/70 group-hover:text-accent-gold transition-colors duration-300">
+                    {service.number}
+                  </span>
+                  <span className="text-[8px] uppercase tracking-[0.3em] text-background/30 px-2 py-0.5 border border-background/10">
+                    Service
+                  </span>
+                </div>
 
-                <h3 className="mt-5 font-serif text-lg text-background/85 leading-snug group-hover:text-accent-gold transition-colors duration-400">
+                <h3 className="mt-8 font-serif text-xl text-background/90 leading-snug group-hover:text-accent-gold transition-colors duration-300">
                   {service.title}
                 </h3>
 
-                <div className="mt-4 w-5 h-px bg-accent-gold/40 group-hover:w-10 transition-all duration-400" />
+                <div className="mt-5 w-8 h-px bg-accent-gold/40 group-hover:w-16 transition-all duration-400" />
 
-                <p className="mt-5 text-[14px] leading-[1.75] text-background/50">
+                <p className="mt-6 text-[14px] leading-[1.8] text-background/55 font-light">
                   {service.description}
                 </p>
               </motion.div>
@@ -99,24 +112,24 @@ export default function ServicesSection() {
         {/* Mobile carousel */}
         {isMobile && (
           <>
-            <div className="relative h-60">
+            <div className="relative min-h-[260px] border border-background/10 p-8 bg-background/[0.02]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: 60 }}
+                  initial={{ opacity: 0, x: 40 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -60 }}
+                  exit={{ opacity: 0, x: -40 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="absolute inset-0 max-w-sm mx-auto"
+                  className="w-full"
                 >
-                  <span className="text-[10px] tracking-widest text-background/25">
+                  <span className="font-serif text-2xl text-accent-gold">
                     {services[index].number}
                   </span>
-                  <h3 className="mt-5 font-serif text-xl text-background/85">
+                  <h3 className="mt-4 font-serif text-xl text-background/90">
                     {services[index].title}
                   </h3>
-                  <div className="mt-4 w-6 h-px bg-accent-gold/50" />
-                  <p className="mt-5 text-sm leading-[1.75] text-background/50">
+                  <div className="mt-4 w-8 h-px bg-accent-gold/60" />
+                  <p className="mt-5 text-sm leading-[1.8] text-background/60 font-light">
                     {services[index].description}
                   </p>
                 </motion.div>
@@ -124,14 +137,14 @@ export default function ServicesSection() {
             </div>
 
             {/* Pagination */}
-            <div className="mt-10 flex justify-center gap-2.5">
+            <div className="mt-8 flex justify-center gap-2.5">
               {services.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setIndex(i)}
                   aria-label={`Service ${i + 1}`}
-                  className={`h-px rounded-full transition-all duration-300 ${
-                    i === index ? "w-6 bg-background/60" : "w-2 bg-background/20"
+                  className={`h-1 transition-all duration-300 ${
+                    i === index ? "w-8 bg-accent-gold" : "w-2 bg-background/20"
                   }`}
                 />
               ))}

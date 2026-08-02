@@ -35,22 +35,30 @@ export default function GalleryGrid({ collections }: { collections: any[] }) {
   };
 
   return (
-    <section className="py-24 md:py-36 bg-background min-h-screen">
-      <div className="px-6">
+    <section className="py-28 md:py-40 bg-background min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Page header */}
         <motion.div
-          className="mb-16"
+          className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <p className="text-[9px] uppercase tracking-[0.45em] text-gray-warm">
-            Archive
-          </p>
-          <h1 className="mt-4 font-serif font-light text-foreground text-[clamp(2.2rem,5vw,3.5rem)]">
-            Full Portfolio
-          </h1>
-          <div className="mt-5 w-8 h-px bg-accent-gold" />
+          <div>
+            <span className="text-[9px] uppercase tracking-[0.45em] text-foreground/40 font-medium">
+              Archive Catalog
+            </span>
+            <h1 className="mt-3 font-serif font-light text-foreground text-[clamp(2.6rem,5vw,4rem)] leading-none">
+              Full Portfolio
+            </h1>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-px bg-accent-gold" />
+            <p className="text-[10px] uppercase tracking-[0.3em] text-foreground/50">
+              Photographic Monograph
+            </p>
+          </div>
         </motion.div>
 
         {/* Search & Filters */}
@@ -138,7 +146,7 @@ export default function GalleryGrid({ collections }: { collections: any[] }) {
             <motion.div
               key="grid"
               layout
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12"
             >
               {filteredCollections.map((item, index) => (
                 <motion.div

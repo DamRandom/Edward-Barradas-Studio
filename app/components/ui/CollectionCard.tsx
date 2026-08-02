@@ -83,9 +83,14 @@ export default function CollectionCard({ item }: CollectionCardProps) {
         </div>
 
         {/* Card label below image */}
-        <p className="mt-3 text-[9px] uppercase tracking-[0.35em] text-gray-warm group-hover:text-foreground transition-colors duration-300">
-          {item.name}
-        </p>
+        <div className="mt-4 flex items-center justify-between">
+          <h3 className="font-serif text-sm font-normal text-foreground group-hover:text-accent-gold transition-colors duration-300">
+            {item.name}
+          </h3>
+          <span className="text-[9px] uppercase tracking-[0.3em] text-foreground/35 font-light">
+            {photoCount > 0 ? `${photoCount} ${photoCount === 1 ? 'WORK' : 'WORKS'}` : 'SERIES'}
+          </span>
+        </div>
       </motion.article>
 
       <AnimatePresence>

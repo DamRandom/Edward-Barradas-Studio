@@ -27,25 +27,31 @@ export default function GalleryPreview({ collections }: { collections: any[] }) 
   }, [isCarousel, collections]);
 
   return (
-    <section id="gallery" className="bg-background py-28 md:py-36">
-      <div className="px-6">
+    <section id="gallery" className="bg-background py-32 md:py-44 border-t border-black/[0.06]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
         <motion.div
-          className="mb-16"
+          className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <p className="text-[9px] uppercase tracking-[0.45em] text-gray-warm">
-            Portfolio
-          </p>
+          <div>
+            <span className="text-[9px] uppercase tracking-[0.45em] text-foreground/40 font-medium">
+              Archive / 01
+            </span>
+            <h2 className="mt-3 font-serif font-light text-foreground text-[clamp(2.4rem,4.5vw,3.6rem)] leading-none">
+              Selected Work
+            </h2>
+          </div>
 
-          <h2 className="mt-4 font-serif font-light text-foreground text-[clamp(2rem,4vw,3rem)]">
-            Selected Work
-          </h2>
-
-          <div className="mt-5 w-8 h-px bg-accent-gold" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-px bg-accent-gold" />
+            <p className="text-[10px] uppercase tracking-[0.3em] text-foreground/50">
+              Curated Series
+            </p>
+          </div>
         </motion.div>
 
         {/* Empty State */}
@@ -59,7 +65,7 @@ export default function GalleryPreview({ collections }: { collections: any[] }) 
 
         {/* Desktop layout */}
         {!isCarousel && collections && collections.length > 0 && (
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {collections.map((item, i) => (
               <CollectionCard key={i} item={item} />
             ))}
@@ -78,7 +84,7 @@ export default function GalleryPreview({ collections }: { collections: any[] }) 
                   exit={{ opacity: 0, x: -30 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                  <div className="max-w-[85vw] mx-auto">
+                  <div className="max-w-[90vw] mx-auto">
                     <CollectionCard item={collections[index]} />
                   </div>
                 </motion.div>
@@ -86,14 +92,14 @@ export default function GalleryPreview({ collections }: { collections: any[] }) 
             </div>
 
             {/* Pagination dots */}
-            <div className="mt-8 flex justify-center gap-2.5">
+            <div className="mt-10 flex justify-center gap-2.5">
               {collections.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setIndex(i)}
                   aria-label={`Collection ${i + 1}`}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    index === i ? "w-6 bg-foreground" : "w-1.5 bg-foreground/20"
+                  className={`h-1 transition-all duration-300 ${
+                    index === i ? "w-8 bg-foreground" : "w-2 bg-foreground/20"
                   }`}
                 />
               ))}
@@ -103,7 +109,7 @@ export default function GalleryPreview({ collections }: { collections: any[] }) 
 
         {/* Bottom CTA */}
         <motion.div
-          className="mt-16 text-center"
+          className="mt-20 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -112,9 +118,10 @@ export default function GalleryPreview({ collections }: { collections: any[] }) 
           <Link
             id="gallery-explore-all"
             href="/gallery"
-            className="inline-block text-[10px] uppercase tracking-widest text-foreground border-b border-foreground/25 pb-0.5 hover:border-foreground/70 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 border border-black/15 text-[10px] uppercase tracking-[0.35em] text-foreground hover:bg-foreground hover:text-background transition-all duration-400"
           >
-            Explore full gallery
+            <span>Explore full gallery</span>
+            <span className="text-accent-gold">→</span>
           </Link>
         </motion.div>
       </div>

@@ -53,9 +53,9 @@ export default function AboutSection({ siteSettings }: { siteSettings?: any }) {
         <div className="absolute inset-0 bg-gradient-to-r from-[#f5f1ea]/60 via-transparent to-[#f5f1ea]/20 pointer-events-none" />
       </motion.div>
 
-      <div className="px-6">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="relative bg-[#f5f1ea] border border-black/[0.07] overflow-hidden"
+          className="relative bg-[#f5f1ea]/90 backdrop-blur-xs border border-black/[0.08] shadow-sm overflow-hidden"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -75,7 +75,7 @@ export default function AboutSection({ siteSettings }: { siteSettings?: any }) {
                   alt="Edward Barradas portrait"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover saturate-[0.8] sepia-[0.12]"
+                  className="object-cover saturate-[0.85] sepia-[0.1]"
                 />
               ) : (
                 <Image
@@ -83,38 +83,44 @@ export default function AboutSection({ siteSettings }: { siteSettings?: any }) {
                   alt="Edward Barradas portrait"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover saturate-[0.8] sepia-[0.12]"
+                  className="object-cover saturate-[0.85] sepia-[0.1]"
                 />
               )}
-              <div className="absolute inset-0 bg-foreground/[0.03]" />
+              <div className="absolute inset-0 bg-foreground/[0.02]" />
             </div>
 
             {/* Text panel */}
             <div className="w-1/2 lg:w-1/2 flex items-center">
-              <div className="p-10 md:p-16 lg:p-20">
-                <p className="text-[9px] uppercase tracking-[0.45em] text-gray-warm mb-4">
-                  About
-                </p>
+              <div className="p-8 sm:p-12 md:p-16 lg:p-20">
+                <span className="text-[9px] uppercase tracking-[0.45em] text-foreground/40 font-medium block mb-3">
+                  About / Vision
+                </span>
 
-                <h2 className="font-serif text-[clamp(1.8rem,3vw,2.5rem)] text-foreground">
+                <h2 className="font-serif font-light text-[clamp(2rem,3.2vw,2.8rem)] text-foreground leading-[1.08]">
                   The Work Behind<br />the Image
                 </h2>
 
-                <div className="mt-6 w-8 h-px bg-accent-gold" />
+                <div className="mt-6 w-12 h-px bg-accent-gold" />
 
-                <div className="mt-8 space-y-5 text-[15px] leading-[1.8] text-foreground/70">
+                <div className="mt-8 space-y-5 text-[14px] sm:text-[15px] leading-[1.85] text-foreground/75 font-light">
                   <p>
                     I&apos;m Edward Barradas, a photographer focused on creating
                     clean, honest and visually timeless imagery.
                   </p>
                   <p>
                     I collaborate on both personal and commercial projects,
-                    working closely with brands and individuals.
+                    working closely with brands, publications and individuals.
                   </p>
                   <p>
                     Every image is carefully crafted, maintaining a minimal
-                    and editorial approach throughout the process.
+                    and editorial approach throughout the entire process.
                   </p>
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-black/10 flex items-center justify-between text-[9px] uppercase tracking-[0.35em] text-foreground/45">
+                  <span>Based in Lima</span>
+                  <span className="text-accent-gold">·</span>
+                  <span>Available Worldwide</span>
                 </div>
               </div>
             </div>
