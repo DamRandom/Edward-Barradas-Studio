@@ -1,30 +1,17 @@
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/Footer";
 import GalleryGrid from "./components/GalleryGrid";
-
-import { client } from "@/sanity/lib/client";
-import { allCollectionsQuery } from "@/sanity/lib/queries";
+import { fetchGalleryData } from "@/app/lib/data";
 
 export const metadata = {
-  title: "Gallery | Edward Barradas Studio",
-  description: "Explore the full photographic archive and editorial portfolio.",
+  title: "Galería | Edward Barradas Studio",
+  description: "Explora el archivo fotográfico completo y el portafolio editorial.",
 };
 
 export default async function GalleryPage() {
-  const collections = await client.fetch(
-    allCollectionsQuery,
-    {},
-    { next: { tags: ["collection"] } }
-  );
+  const collections = await fetchGalleryData();
 
   return (
-    <>
-      <main>
-        <Navbar />
-        <GalleryGrid collections={collections} />
-      </main>
-      <Footer />
-    </>
+    <main className="min-h-screen bg-background text-foreground">
+      <GalleryGrid collections={collections} />
+    </main>
   );
 }
-

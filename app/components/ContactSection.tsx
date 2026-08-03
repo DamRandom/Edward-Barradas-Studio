@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CONTACT_INFO } from "@/app/constants/site";
 
 export default function ContactSection() {
   return (
@@ -22,28 +23,28 @@ export default function ContactSection() {
           {/* Left content */}
           <div className="lg:col-span-7">
             <span className="text-[9px] uppercase tracking-[0.45em] text-foreground/40 font-medium block mb-3">
-              Inquiries / 03
+              Consultas / 03
             </span>
 
             <h2 className="font-serif font-light text-[clamp(2.5rem,5.5vw,4.2rem)] text-foreground leading-[1.02]">
-              Let&apos;s create something<br />
-              <span className="italic font-serif text-accent-gold font-normal">timeless</span> together.
+              Creemos algo<br />
+              <span className="italic font-serif text-accent-gold font-normal">atemporal</span> juntos.
             </h2>
 
             <div className="mt-8 w-12 h-px bg-accent-gold" />
 
             <p className="mt-8 text-[15px] leading-[1.85] text-foreground/70 max-w-lg font-light">
-              For print inquiries, commissioned editorial photography, brand collaborations
-              or private portraiture, feel free to reach out. Every inquiry is handled with attention and care.
+              Para consultas de impresiones, fotografía editorial por encargo, colaboraciones con marcas
+              o retratos privados, no dudes en escribirme. Cada consulta es atendida con dedicación y cuidado.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-8 text-[10px] uppercase tracking-[0.3em] text-foreground/50">
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600/80" />
-                Open for Q3/Q4 Projects
+                Disponible para Proyectos Q3/Q4
               </span>
               <span>·</span>
-              <span>Lima & International</span>
+              <span>{CONTACT_INFO.location}</span>
             </div>
           </div>
 
@@ -58,26 +59,17 @@ export default function ContactSection() {
             <div className="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 blur-2xl pointer-events-none" />
 
             <p className="text-[9px] uppercase tracking-[0.35em] text-foreground/40 mb-6 font-medium">
-              Direct Contact
+              Contacto Directo
             </p>
 
             <a
               id="contact-start-conversation"
-              href="https://wa.me/51910280429"
+              href={CONTACT_INFO.whatsapp}
               target="_blank"
               rel="noreferrer"
-              className="
-                group
-                w-full
-                flex items-center justify-between
-                px-7 py-4.5
-                bg-foreground text-background
-                text-[10px] uppercase tracking-[0.35em]
-                hover:bg-foreground/90
-                transition-all duration-300
-              "
+              className="group w-full flex items-center justify-between px-7 py-4.5 bg-foreground text-background text-[10px] uppercase tracking-[0.35em] hover:bg-foreground/90 transition-all duration-300"
             >
-              <span>Start Conversation</span>
+              <span>Iniciar Conversación</span>
               <span className="text-accent-gold group-hover:translate-x-1 transition-transform duration-300">
                 →
               </span>
@@ -85,24 +77,24 @@ export default function ContactSection() {
 
             <div className="mt-8 space-y-4 pt-6 border-t border-black/10">
               <div className="flex flex-col">
-                <span className="text-[8px] uppercase tracking-widest text-foreground/35 mb-1">Email</span>
+                <span className="text-[8px] uppercase tracking-widest text-foreground/35 mb-1">Correo</span>
                 <a
-                  href="mailto:contact@edwardbarradas.com"
+                  href={`mailto:${CONTACT_INFO.email}`}
                   className="text-xs tracking-wider text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
                 >
-                  contact@edwardbarradas.com
+                  {CONTACT_INFO.email}
                 </a>
               </div>
 
               <div className="flex flex-col pt-2">
                 <span className="text-[8px] uppercase tracking-widest text-foreground/35 mb-1">Instagram</span>
                 <a
-                  href="https://instagram.com/fragmentsofed"
+                  href={CONTACT_INFO.instagram}
                   target="_blank"
                   rel="noreferrer"
                   className="text-xs tracking-wider text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
                 >
-                  @fragmentsofed
+                  {CONTACT_INFO.instagramHandle}
                 </a>
               </div>
             </div>

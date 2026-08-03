@@ -2,51 +2,34 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-
-const services = [
-  {
-    number: "01",
-    title: "Portrait Photography",
-    description:
-      "Personal and professional portrait sessions focused on natural light, clean composition and a timeless editorial aesthetic.",
-  },
-  {
-    number: "02",
-    title: "Commercial Photography",
-    description:
-      "Visual content for brands, products and editorial projects seeking clarity, consistency and refined visual identity.",
-  },
-  {
-    number: "03",
-    title: "Fine Art Prints",
-    description:
-      "Selected works available as high-quality digital files or curated prints, with licensing options based on usage.",
-  },
-];
+import { useIsMobile } from "@/app/hooks/useMediaQuery";
+import { SERVICES } from "@/app/constants/site";
 
 export default function ServicesSection() {
   const [index, setIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    const resize = () => setIsMobile(window.innerWidth < 1024);
-    resize();
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
-
+  // Auto-advance carousel on mobile
   useEffect(() => {
     if (!isMobile) return;
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % services.length);
+      setIndex((prev) => (prev + 1) % SERVICES.length);
     }, 4000);
     return () => clearInterval(timer);
   }, [isMobile]);
 
   return (
-    <section id="services" className="relative py-32 md:py-44 bg-[#141414] text-background overflow-hidden border-t border-b border-black">
+    <section
+      id="services"
+      className="relative py-32 md:py-44 bg-[#141414] text-background overflow-hidden border-t border-b border-black"
+    >
       {/* Subtle warm grain texture */}
-      <div className="absolute inset-0 opacity-[0.04] bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')] pointer-events-none" />
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        }}
+      />
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
@@ -59,27 +42,26 @@ export default function ServicesSection() {
         >
           <div>
             <span className="text-[9px] uppercase tracking-[0.45em] text-background/40 font-medium block mb-3">
-              Services / 02
+              Servicios / 02
             </span>
             <h2 className="font-serif font-light text-background/95 text-[clamp(2.4rem,4.5vw,3.6rem)] leading-none">
-              Capabilities & Offerings
+              Capacidades & Servicios
             </h2>
           </div>
-
           <div className="flex items-center gap-4">
             <div className="w-12 h-px bg-accent-gold/60" />
             <p className="text-[10px] uppercase tracking-[0.3em] text-background/45">
-              Custom Solutions
+              Soluciones Personalizadas
             </p>
           </div>
         </motion.div>
 
-        {/* Desktop layout */}
+        {/* Desktop grid */}
         {!isMobile && (
           <div className="grid grid-cols-3 divide-x divide-background/[0.08] border-t border-b border-background/[0.08]">
-            {services.map((service, i) => (
+            {SERVICES.map((service, i) => (
               <motion.div
-                key={i}
+                key={service.number}
                 className="p-8 lg:p-12 group transition-colors duration-400 hover:bg-background/[0.02]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -91,16 +73,13 @@ export default function ServicesSection() {
                     {service.number}
                   </span>
                   <span className="text-[8px] uppercase tracking-[0.3em] text-background/30 px-2 py-0.5 border border-background/10">
-                    Service
+                    Servicio
                   </span>
                 </div>
-
                 <h3 className="mt-8 font-serif text-xl text-background/90 leading-snug group-hover:text-accent-gold transition-colors duration-300">
                   {service.title}
                 </h3>
-
                 <div className="mt-5 w-8 h-px bg-accent-gold/40 group-hover:w-16 transition-all duration-400" />
-
                 <p className="mt-6 text-[14px] leading-[1.8] text-background/55 font-light">
                   {service.description}
                 </p>
@@ -123,14 +102,14 @@ export default function ServicesSection() {
                   className="w-full"
                 >
                   <span className="font-serif text-2xl text-accent-gold">
-                    {services[index].number}
+                    {SERVICES[index].number}
                   </span>
                   <h3 className="mt-4 font-serif text-xl text-background/90">
-                    {services[index].title}
+                    {SERVICES[index].title}
                   </h3>
                   <div className="mt-4 w-8 h-px bg-accent-gold/60" />
                   <p className="mt-5 text-sm leading-[1.8] text-background/60 font-light">
-                    {services[index].description}
+                    {SERVICES[index].description}
                   </p>
                 </motion.div>
               </AnimatePresence>
@@ -138,9 +117,9 @@ export default function ServicesSection() {
 
             {/* Pagination */}
             <div className="mt-8 flex justify-center gap-2.5">
-              {services.map((_, i) => (
+              {SERVICES.map((s, i) => (
                 <button
-                  key={i}
+                  key={s.number}
                   onClick={() => setIndex(i)}
                   aria-label={`Service ${i + 1}`}
                   className={`h-1 transition-all duration-300 ${

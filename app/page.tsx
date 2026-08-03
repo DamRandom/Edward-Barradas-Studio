@@ -1,43 +1,28 @@
 import Navbar from "./components/Navbar";
-import Hero from "./components/HeroBanner";
+import HeroBanner from "./components/HeroBanner";
 import GalleryPreview from "./components/GalleryPreview";
 import AboutSection from "./components/AboutSection";
+import InstagramSection from "./components/InstagramSection";
 import ServicesSection from "./components/ServicesSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-
-import { client } from "@/sanity/lib/client";
-import { recentCollectionsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+import { fetchHomeData } from "./lib/data";
 
 export default async function Home() {
-  const collections = await client.fetch(
-    recentCollectionsQuery,
-    {},
-    { next: { tags: ["collection"] } }
-  );
-  const siteSettings =
-    (await client.fetch(
-      siteSettingsQuery,
-      {},
-      { next: { tags: ["siteSettings"] } }
-    )) || {};
+  const { collections, siteSettings, instagramPosts } = await fetchHomeData();
 
   return (
     <>
       <main>
-        <Hero siteSettings={siteSettings} />
+        <HeroBanner siteSettings={siteSettings} />
         <Navbar />
         <GalleryPreview collections={collections} />
-
         <AboutSection siteSettings={siteSettings} />
-
+        <InstagramSection posts={instagramPosts} />
         <ServicesSection />
-
         <ContactSection />
       </main>
-
       <Footer />
     </>
   );
 }
-

@@ -2,19 +2,20 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
+import { useIsMobile } from "@/app/hooks/useMediaQuery";
+import type { SanitySiteSettings } from "@/app/types";
 
-export default function AboutSection({ siteSettings }: { siteSettings?: any }) {
+interface AboutSectionProps {
+  siteSettings?: SanitySiteSettings;
+}
+
+const FALLBACK_BG = "/images/gallery1.jpg";
+const FALLBACK_PORTRAIT = "/images/about.jpg";
+
+export default function AboutSection({ siteSettings }: AboutSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [showText, setShowText] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -31,23 +32,13 @@ export default function AboutSection({ siteSettings }: { siteSettings?: any }) {
     >
       {/* Parallax background — film aesthetic */}
       <motion.div aria-hidden style={{ y: bgY }} className="absolute inset-0 -z-10">
-        {siteSettings?.aboutBackground ? (
-          <Image
-            src={siteSettings.aboutBackground}
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover saturate-[0.15] sepia-[0.3] contrast-[0.88] brightness-[0.85]"
-          />
-        ) : (
-          <Image
-            src="/images/gallery1.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover saturate-[0.15] sepia-[0.3] contrast-[0.88] brightness-[0.85]"
-          />
-        )}
+        <Image
+          src={siteSettings?.aboutBackground ?? FALLBACK_BG}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover saturate-[0.15] sepia-[0.3] contrast-[0.88] brightness-[0.85]"
+        />
         {/* Warm cream overlay */}
         <div className="absolute inset-0 bg-[#f5f1ea]/50 backdrop-blur-[3px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#f5f1ea]/60 via-transparent to-[#f5f1ea]/20 pointer-events-none" />
@@ -61,87 +52,64 @@ export default function AboutSection({ siteSettings }: { siteSettings?: any }) {
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          {/* Sliding container for mobile */}
-          <motion.div
-            className="flex w-[200%] lg:w-full"
-            animate={isMobile ? { x: showText ? "-50%" : "0%" } : { x: "0%" }}
-            transition={{ duration: 0.65, ease: "easeInOut" }}
-          >
-            {/* Image panel */}
-            <div className="w-1/2 lg:w-1/2 relative aspect-3/4 lg:aspect-auto">
-              {siteSettings?.aboutPortrait ? (
-                <Image
-                  src={siteSettings.aboutPortrait}
-                  alt="Edward Barradas portrait"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover saturate-[0.85] sepia-[0.1]"
-                />
-              ) : (
-                <Image
-                  src="/images/about.jpg"
-                  alt="Edward Barradas portrait"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover saturate-[0.85] sepia-[0.1]"
-                />
-              )}
+          {/* On mobile: stacked layout (portrait on top, text below).
+              On desktop: side-by-side 50/50 split. */}
+          <div className="flex flex-col lg:flex-row">
+            {/* Portrait */}
+            <div className="w-full lg:w-1/2 relative aspect-[3/4] lg:aspect-auto lg:min-h-[520px]">
+              <Image
+                src={siteSettings?.aboutPortrait ?? FALLBACK_PORTRAIT}
+                alt="Edward Barradas portrait"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover saturate-[0.85] sepia-[0.1]"
+              />
               <div className="absolute inset-0 bg-foreground/[0.02]" />
             </div>
 
-            {/* Text panel */}
-            <div className="w-1/2 lg:w-1/2 flex items-center">
+            {/* Text */}
+            <div className="w-full lg:w-1/2 flex items-center">
               <div className="p-8 sm:p-12 md:p-16 lg:p-20">
                 <span className="text-[9px] uppercase tracking-[0.45em] text-foreground/40 font-medium block mb-3">
-                  About / Vision
+                  Sobre mí / Visión
                 </span>
 
                 <h2 className="font-serif font-light text-[clamp(2rem,3.2vw,2.8rem)] text-foreground leading-[1.08]">
-                  The Work Behind<br />the Image
+                  El Trabajo Detrás<br />de la Imagen
                 </h2>
 
                 <div className="mt-6 w-12 h-px bg-accent-gold" />
 
                 <div className="mt-8 space-y-5 text-[14px] sm:text-[15px] leading-[1.85] text-foreground/75 font-light">
                   <p>
-                    I&apos;m Edward Barradas, a photographer focused on creating
-                    clean, honest and visually timeless imagery.
+                    Soy Edward Barradas, fotógrafo enfocado en crear imágenes
+                    limpias, honestas y visualmente atemporales.
                   </p>
                   <p>
-                    I collaborate on both personal and commercial projects,
-                    working closely with brands, publications and individuals.
+                    Colaboro en proyectos personales y comerciales,
+                    trabajando estrechamente con marcas, publicaciones y personas.
                   </p>
                   <p>
-                    Every image is carefully crafted, maintaining a minimal
-                    and editorial approach throughout the entire process.
+                    Cada imagen está cuidadosamente elaborada, manteniendo un enfoque
+                    minimal y editorial durante todo el proceso.
                   </p>
                 </div>
 
                 <div className="mt-10 pt-6 border-t border-black/10 flex items-center justify-between text-[9px] uppercase tracking-[0.35em] text-foreground/45">
-                  <span>Based in Lima</span>
+                  <span>Basado en Lima</span>
                   <span className="text-accent-gold">·</span>
-                  <span>Available Worldwide</span>
+                  <span>Disponible Internacionalmente</span>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Mobile toggle button */}
+          {/* Mobile swipe hint — replaced the complex sliding animation with
+              a simple stacked layout that is more reliable and accessible */}
           {isMobile && (
-            <button
-              id="about-toggle-mobile"
-              onClick={() => setShowText((v) => !v)}
-              className="absolute bottom-5 right-5 flex items-center justify-center w-9 h-9 border border-foreground/20 text-foreground/50 hover:border-foreground/50 hover:text-foreground transition-all duration-300"
-              aria-label="Toggle about content"
-            >
-              <motion.span
-                animate={{ rotate: showText ? 180 : 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="block text-sm"
-              >
-                →
-              </motion.span>
-            </button>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[8px] uppercase tracking-[0.35em] text-foreground/30 pointer-events-none">
+              ↓ Scroll
+            </div>
           )}
         </motion.div>
       </div>

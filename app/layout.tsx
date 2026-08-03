@@ -13,8 +13,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Edward Barradas Studio | Photography & Art",
-  description: "Photography, Visual Art, and Editorial Aesthetic by Edward Barradas.",
+  title: "Edward Barradas Studio | Fotografía & Arte",
+  description: "Fotografía, Arte Visual y Estética Editorial por Edward Barradas.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth">
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased min-h-screen bg-background text-foreground overflow-x-hidden`}
       >

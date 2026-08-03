@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { NAV_LINKS } from "@/app/constants/site";
 
 export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
@@ -16,7 +17,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsSticky(window.scrollY > window.innerHeight - 80);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -32,7 +33,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href={isHome ? "#home" : "/"} className="flex items-center group">
           <Image
-            src="/images/logo.png"
+            src="/images/logo1.png"
             alt="Edward Barradas"
             width={300}
             height={100}
@@ -41,23 +42,18 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop links */}
+        {/* Desktop links — only on home */}
         {isHome && (
           <div className="hidden md:flex items-center gap-12">
             <span className="text-[9px] uppercase tracking-[0.4em] text-foreground/30 font-light border-r border-black/10 pr-8">
               Lima, Perú
             </span>
             <ul className="flex items-center gap-8 text-[10px] uppercase tracking-[0.35em] text-foreground/60">
-              {[
-                { name: "gallery", label: "Gallery" },
-                { name: "about", label: "About" },
-                { name: "services", label: "Services" },
-                { name: "contact", label: "Contact" },
-              ].map((item) => (
+              {NAV_LINKS.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={`#${item.name}`}
-                    className="hover:text-foreground transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-accent-gold hover:after:w-full after:transition-all after:duration-300"
+                    className="hover:text-foreground transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-accent-gold hover:after:w-full after:transition-all after:duration-300"
                   >
                     {item.label}
                   </Link>
@@ -67,18 +63,19 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Mobile toggle */}
+        {/* Mobile toggle — only on home */}
         {isHome && (
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden text-[9px] uppercase tracking-[0.4em] text-foreground/70 hover:text-foreground transition-colors duration-300 px-3 py-1.5 border border-black/10 rounded-none"
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
           >
-            {open ? "Close" : "Menu"}
+            {open ? "Cerrar" : "Menú"}
           </button>
         )}
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile fullscreen menu — only on home */}
       {isHome && (
         <AnimatePresence>
           {open && (
@@ -92,17 +89,13 @@ export default function Navbar() {
               <button
                 onClick={() => setOpen(false)}
                 className="absolute top-6 right-6 text-[9px] uppercase tracking-[0.4em] text-gray-warm hover:text-foreground"
+                aria-label="Cerrar menú"
               >
-                Close
+                Cerrar
               </button>
 
               <ul className="flex flex-col items-center gap-10 text-xs uppercase tracking-[0.45em] text-foreground/70">
-                {[
-                  { name: "gallery", label: "Gallery" },
-                  { name: "about", label: "About" },
-                  { name: "services", label: "Services" },
-                  { name: "contact", label: "Contact" },
-                ].map((item, i) => (
+                {NAV_LINKS.map((item, i) => (
                   <motion.li
                     key={item.name}
                     initial={{ opacity: 0, y: 16 }}
