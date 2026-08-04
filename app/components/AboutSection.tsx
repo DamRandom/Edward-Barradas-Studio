@@ -31,7 +31,11 @@ export default function AboutSection({ siteSettings }: AboutSectionProps) {
       className="relative py-32 md:py-44 overflow-hidden"
     >
       {/* Parallax background — film aesthetic */}
-      <motion.div aria-hidden style={{ y: bgY }} className="absolute inset-0 -z-10">
+      <motion.div
+        aria-hidden
+        style={{ y: bgY }}
+        className="absolute inset-0 -z-10"
+      >
         <Image
           src={siteSettings?.aboutBackground ?? FALLBACK_BG}
           alt=""
@@ -41,12 +45,12 @@ export default function AboutSection({ siteSettings }: AboutSectionProps) {
         />
         {/* Warm cream overlay */}
         <div className="absolute inset-0 bg-[#f5f1ea]/50 backdrop-blur-[3px]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#f5f1ea]/60 via-transparent to-[#f5f1ea]/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#f5f1ea]/60 via-transparent to-[#f5f1ea]/20 pointer-events-none" />
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="relative bg-[#f5f1ea]/90 backdrop-blur-xs border border-black/[0.08] shadow-sm overflow-hidden"
+          className="relative bg-[#f5f1ea]/90 backdrop-blur-xs border border-black/8 shadow-sm overflow-hidden"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -75,23 +79,27 @@ export default function AboutSection({ siteSettings }: AboutSectionProps) {
                 </span>
 
                 <h2 className="font-serif font-light text-[clamp(2rem,3.2vw,2.8rem)] text-foreground leading-[1.08]">
-                  El Trabajo Detrás<br />de la Imagen
+                  El trabajo detrás
+                  <br />
+                  de la imagen
                 </h2>
 
                 <div className="mt-6 w-12 h-px bg-accent-gold" />
 
                 <div className="mt-8 space-y-5 text-[14px] sm:text-[15px] leading-[1.85] text-foreground/75 font-light">
                   <p>
-                    Soy Edward Barradas, fotógrafo enfocado en crear imágenes
-                    limpias, honestas y visualmente atemporales.
+                    Soy Edward Hernández Barradas, fotógrafo enfocado en
+                    retratos y fotografía homoerótica, creando imágenes limpias,
+                    honestas y visualmente atemporales.
                   </p>
                   <p>
-                    Colaboro en proyectos personales y comerciales,
-                    trabajando estrechamente con marcas, publicaciones y personas.
+                    Colaboro en proyectos personales, trabajando de cerca con
+                    personas y propuestas creativas que buscan una identidad
+                    visual auténtica.
                   </p>
                   <p>
-                    Cada imagen está cuidadosamente elaborada, manteniendo un enfoque
-                    minimal y editorial durante todo el proceso.
+                    Cada imagen está cuidadosamente elaborada, manteniendo un
+                    enfoque minimalista y editorial durante todo el proceso.
                   </p>
                 </div>
 

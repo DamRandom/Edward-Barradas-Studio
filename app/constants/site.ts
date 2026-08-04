@@ -38,7 +38,7 @@ export const SERVICES = [
 ] as const;
 
 export const CONTACT_INFO = {
-  email: "contact@edwardbarradas.com",
+  email: "edwardenrique1@gmail.com",
   whatsapp: "https://wa.me/51910280429",
   instagram: "https://instagram.com/fragmentsofed",
   instagramHandle: "@fragmentsofed",

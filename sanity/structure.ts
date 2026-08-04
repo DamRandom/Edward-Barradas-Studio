@@ -1,18 +1,21 @@
-import type { StructureResolver } from 'sanity/structure'
+import type { StructureResolver } from "sanity/structure";
 
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Content')
+    .title("Content")
     .items([
       S.listItem()
-        .title('Site Settings')
-        .id('siteSettings')
+        .title("Site Settings")
+        .id("siteSettings")
         .child(
           S.document()
-            .schemaType('siteSettings')
-            .documentId('siteSettings')
-            .title('Site Settings')
+            .schemaType("siteSettings")
+            .documentId("siteSettings")
+            .title("Site Settings")
         ),
+
       S.divider(),
-      S.documentTypeListItem('collection').title('Collections'),
-    ])
+
+      S.documentTypeListItem("collection").title("Collections"),
+      S.documentTypeListItem("instagramPost").title("Instagram Posts"),
+    ]);

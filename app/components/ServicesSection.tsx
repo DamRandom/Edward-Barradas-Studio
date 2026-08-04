@@ -58,11 +58,11 @@ export default function ServicesSection() {
 
         {/* Desktop grid */}
         {!isMobile && (
-          <div className="grid grid-cols-3 divide-x divide-background/[0.08] border-t border-b border-background/[0.08]">
+          <div className="grid grid-cols-3 divide-x divide-background/8 border-t border-b border-background/8">
             {SERVICES.map((service, i) => (
               <motion.div
                 key={service.number}
-                className="p-8 lg:p-12 group transition-colors duration-400 hover:bg-background/[0.02]"
+                className="p-8 lg:p-12 group transition-colors duration-400 hover:bg-background/2"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -91,7 +91,7 @@ export default function ServicesSection() {
         {/* Mobile carousel */}
         {isMobile && (
           <>
-            <div className="relative min-h-[260px] border border-background/10 p-8 bg-background/[0.02]">
+            <div className="relative min-h-65 border border-background/10 p-8 bg-background/2">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}

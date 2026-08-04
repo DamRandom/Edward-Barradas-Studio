@@ -45,7 +45,7 @@ export default function HeroBanner({ siteSettings }: HeroBannerProps) {
         />
 
         {/* Warm cream veil — editorial feel */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f1ea]/30 via-[#f5f1ea]/55 to-[#f5f1ea]/75" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#f5f1ea]/30 via-[#f5f1ea]/55 to-[#f5f1ea]/75" />
 
         {/* Subtle vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(26,20,12,0.2)_100%)] pointer-events-none" />
@@ -58,17 +58,13 @@ export default function HeroBanner({ siteSettings }: HeroBannerProps) {
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
       >
-        {/* Eyebrow label */}
-        <motion.div
-          className="inline-flex items-center gap-3 px-4 py-1.5 border border-black/10 rounded-full mb-8 bg-background/40 backdrop-blur-xs"
+        <motion.span
+          className="text-[9px] uppercase tracking-[0.45em] text-foreground/60 font-medium"
           variants={CHILD_VARIANTS}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-pulse" />
-          <span className="text-[9px] uppercase tracking-[0.45em] text-foreground/60 font-medium">
-            Fotografía & Arte · Lima, Perú
-          </span>
-        </motion.div>
+          Fotografía & Arte · Lima, Perú
+        </motion.span>
 
         {/* Name — Playfair Display */}
         <motion.h1
@@ -94,7 +90,10 @@ export default function HeroBanner({ siteSettings }: HeroBannerProps) {
         {/* Divider line */}
         <motion.div
           className="mt-10 mx-auto w-16 h-px bg-accent-gold/60"
-          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
+          variants={{
+            hidden: { opacity: 0, scaleX: 0 },
+            visible: { opacity: 1, scaleX: 1 },
+          }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         />
 
@@ -116,7 +115,7 @@ export default function HeroBanner({ siteSettings }: HeroBannerProps) {
             href="#contact"
             className="text-[10px] uppercase tracking-[0.35em] text-foreground/70 hover:text-foreground underline-offset-8 decoration-accent-gold hover:underline transition-all duration-300 py-2"
           >
-            Escríbeme →
+            Contáctame →
           </a>
         </motion.div>
 
@@ -128,7 +127,9 @@ export default function HeroBanner({ siteSettings }: HeroBannerProps) {
         >
           {SOCIAL_LINKS.map((s, i) => (
             <span key={s.label} className="flex items-center gap-6">
-              {i > 0 && <span className="text-accent-gold/40 text-[9px]">·</span>}
+              {i > 0 && (
+                <span className="text-accent-gold/40 text-[9px]">·</span>
+              )}
               <a
                 href={s.href}
                 target="_blank"
@@ -136,7 +137,7 @@ export default function HeroBanner({ siteSettings }: HeroBannerProps) {
                 className="text-foreground/45 hover:text-foreground transition-colors duration-300"
                 aria-label={s.label}
               >
-                <SocialIcon name={s.label} className="w-[18px] h-[18px]" />
+                <SocialIcon name={s.label} className="w-4.5 h-4.5" />
               </a>
             </span>
           ))}

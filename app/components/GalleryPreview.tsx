@@ -27,7 +27,7 @@ export default function GalleryPreview({ collections }: GalleryPreviewProps) {
   const isEmpty = !collections?.length;
 
   return (
-    <section id="gallery" className="bg-background py-32 md:py-44 border-t border-black/[0.06]">
+    <section id="gallery" className="bg-background py-32 md:py-44 border-t border-black/6">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
         <motion.div
@@ -48,7 +48,7 @@ export default function GalleryPreview({ collections }: GalleryPreviewProps) {
           <div className="flex items-center gap-4">
             <div className="w-12 h-px bg-accent-gold" />
             <p className="text-[10px] uppercase tracking-[0.3em] text-foreground/50">
-              Series Curadas
+              Colecciones
             </p>
           </div>
         </motion.div>

@@ -31,7 +31,7 @@ export default function InstagramSection({ posts }: InstagramSectionProps) {
   if (!posts || posts.length === 0) return null;
 
   return (
-    <section className="py-24 md:py-36 bg-background border-t border-black/[0.06]">
+    <section className="py-24 md:py-36 bg-background border-t border-black/6">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
           className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -45,7 +45,7 @@ export default function InstagramSection({ posts }: InstagramSectionProps) {
               Social / IG
             </span>
             <h2 className="font-serif font-light text-[clamp(2.4rem,4.5vw,3.6rem)] text-foreground leading-none">
-              Diario Visual
+              Diario de Instagram
             </h2>
           </div>
           <div className="flex items-center gap-4">

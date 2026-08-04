@@ -10,7 +10,7 @@ export default function ContactSection() {
       className="relative py-28 md:py-44 bg-background overflow-hidden"
     >
       {/* Decorative top border accent */}
-      <div className="absolute top-0 left-6 right-6 h-px bg-black/[0.06]" />
+      <div className="absolute top-0 left-6 right-6 h-px bg-black/6" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div

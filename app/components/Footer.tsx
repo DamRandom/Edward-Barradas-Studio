@@ -16,9 +16,6 @@ export default function Footer() {
             height={100}
             className="h-10 w-auto object-contain opacity-85"
           />
-          <span className="text-[8px] uppercase tracking-[0.4em] text-foreground/35">
-            {SITE_META.tagline}
-          </span>
         </div>
 
         {/* Social links */}

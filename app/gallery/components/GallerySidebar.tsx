@@ -2,7 +2,7 @@
 
 import { Fragment } from "react";
 import Link from "next/link";
-import { CONTACT_INFO, SOCIAL_LINKS } from "@/app/constants/site";
+import { SOCIAL_LINKS } from "@/app/constants/site";
 import { SocialIcon } from "@/app/components/ui/SocialIcon";
 
 interface GallerySidebarProps {
@@ -23,7 +23,7 @@ export default function GallerySidebar({
   resultLabel,
 }: GallerySidebarProps) {
   return (
-    <aside className="w-full lg:w-[310px] xl:w-[340px] shrink-0 lg:sticky lg:top-8 lg:max-h-[calc(100vh-4rem)] flex flex-col justify-between space-y-7 bg-background lg:pr-3 overflow-y-auto">
+    <aside className="w-full lg:w-77.5 xl:w-85 shrink-0 lg:sticky lg:top-8 lg:max-h-[calc(100vh-4rem)] flex flex-col justify-between space-y-7 bg-background lg:pr-3 overflow-y-auto">
       <div className="space-y-6">
         {/* Return Home */}
         <div className="flex items-center justify-end border-b border-foreground/10 pb-4">
@@ -54,9 +54,9 @@ export default function GallerySidebar({
         {/* View Mode Toggle */}
         <div className="space-y-2 pt-1">
           <span className="text-[9px] uppercase tracking-[0.3em] text-foreground/40 font-medium block">
-            Organizar Obras
+            Ver como
           </span>
-          <div className="grid grid-cols-2 gap-1.5 bg-foreground/[0.04] p-1 border border-foreground/10">
+          <div className="grid grid-cols-2 gap-1.5 bg-foreground/4 p-1 border border-foreground/10">
             {(["feed", "collections"] as const).map((mode) => (
               <button
                 key={mode}
@@ -123,7 +123,7 @@ export default function GallerySidebar({
                 className="hover:text-foreground text-foreground/45 transition-colors p-1"
                 aria-label={s.label}
               >
-                <SocialIcon name={s.label} className="w-[15px] h-[15px]" />
+                <SocialIcon name={s.label} className="w-3.75 h-3.75" />
               </a>
             </Fragment>
           ))}
