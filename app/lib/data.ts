@@ -48,10 +48,10 @@ export async function fetchHomeData(): Promise<HomeData> {
       { next: { tags: ["siteSettings"] } }
     ),
     client.fetch<InstagramPost[]>(
-      instagramPostsQuery,
-      {},
-      { next: { tags: ["instagramPost"] } }
-    ),
+  instagramPostsQuery,
+  {},
+  { cache: "no-store" }
+),
   ]);
 
   const siteSettings: SanitySiteSettings = rawSettings ?? {};
